@@ -4,8 +4,7 @@ import { GameApplication } from "../GameApplication";
 export class CalculatorBackground extends PIXI.Container {
 
   private backgroundContainer:PIXI.Container;
-  private calcuatorBackground:PIXI.Sprite;
-
+ 
   private backgroundWidth:number;
   private backgroundHeight:number;
   private backgroundColor:number;
@@ -54,9 +53,7 @@ export class CalculatorBackground extends PIXI.Container {
 
     private createCalculatorBackground() {
         const gfx:PIXI.Graphics = new PIXI.Graphics();
-        //gfx.beginFill(0x000000);
         gfx.beginFill(this.backgroundColor);
-        //gfx.drawRoundedRect(0,0,250,480,10);
         gfx.drawRoundedRect(0,0,
             this.backgroundWidth,
             this.backgroundHeight,
@@ -66,16 +63,11 @@ export class CalculatorBackground extends PIXI.Container {
         const texture:PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx);
         const calcuatorBackground:PIXI.Sprite = new PIXI.Sprite(texture);
         this.backgroundContainer.addChild(calcuatorBackground)
-        console.log(calcuatorBackground,"kkkkkkkkkkkkkkkkkkkkkkkkkkk")
-       // this.backgroundContainer.x = 400
-        //this.addChild(this.backgroundContainer)
     }
 
     private createCalculatorOutline() {
         const gfx:PIXI.Graphics = new PIXI.Graphics();
-       // gfx.beginFill(0xFF5733);
         gfx.beginFill(this.outlineColor);
-       // gfx.drawRoundedRect(0,0,260,485,10);
         gfx.drawRoundedRect(0,0,
             this.outlineWidth,
             this.outlineHeight,
@@ -91,7 +83,6 @@ export class CalculatorBackground extends PIXI.Container {
         private createMetalStrip() {
         const texture: PIXI.Texture = PIXI.Texture.from('../assets/image/aluminum.jpg');
         this.metalStrip= new PIXI.Sprite(texture);
-        // this.metalStrip.x= 10
         this.metalStrip.y = 80;
         this.metalStrip.height = 50;
         this.metalStrip.width = 250;
