@@ -43,7 +43,6 @@ export class CalculatorModel {
 
         this.total = data;
         EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.UPDATE_DISPLAY, this.total);
-       // this.notifyDisplay(this.total);
     }
 
     private setLeftOperand(data:string) {
@@ -64,7 +63,6 @@ export class CalculatorModel {
             this.rightOperandSet = true;
         }
         EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.UPDATE_DISPLAY, this.memory);
-        //this.notifyDisplay(this.memory);
     }
 
     public clearMemory() {
@@ -77,7 +75,6 @@ export class CalculatorModel {
         this.operatorSet = false;
         this.numbers = [];
         EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.UPDATE_DISPLAY, this.memory);
-      //  this.notifyDisplay(this.memory);
     }
 
     public calculateResult() {
@@ -100,9 +97,6 @@ export class CalculatorModel {
         this.observers.push(observer);
     }
 
-    private notifyDisplay(data:any): void {
-        this.observers[0](data);
-    }
     private toFixedTrimmed(num:number, digits:number) {
         let str = num.toFixed(digits);
         return str.replace(/\.?0+$/, '');

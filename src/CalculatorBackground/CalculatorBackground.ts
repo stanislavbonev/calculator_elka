@@ -38,7 +38,6 @@ export class CalculatorBackground extends PIXI.Container {
     this.outlineColor = outlineColor;
 
     this.init();
-   
   }
 
   private init(){
@@ -48,7 +47,6 @@ export class CalculatorBackground extends PIXI.Container {
     this.createCalculatorOutline();
     this.createCalculatorBackground();
     this.createMetalStrip();
-
   }
 
     private createCalculatorBackground() {

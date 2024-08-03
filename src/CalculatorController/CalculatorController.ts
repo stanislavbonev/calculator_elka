@@ -1,5 +1,4 @@
 import { CalculatorModel } from "../CalculatorModel/CalculatorModel";
-import { CalculatorFactory } from "../Factory/CalculatorFactory";
 import { CalculatorView } from "../CalculatorView/CalculatorView";
 import { CalculatorEvents } from "../CalculatorEvents";
 import { EventDispatcher } from "../EventDispatcher";
@@ -7,7 +6,6 @@ import * as PIXI from "pixi.js";
 
 export class CalculatorController extends PIXI.Container {
 
-    private calaculatorFactory: CalculatorFactory;
     private calculatorView: CalculatorView;
     private calculatorModel: CalculatorModel;
 
@@ -20,8 +18,6 @@ export class CalculatorController extends PIXI.Container {
 
     private init() {
         this.setCalculatorView();
-       // this.setCalculatorFactory();
-        this.setControllerObserver();
 
         EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.NUMERIC_BUTTON_PRESSED, this.readNumericButton.bind(this));
         EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.OPERATOR_BUTTON_PRESSED, this.readOperatorButton.bind(this));
@@ -51,20 +47,7 @@ console.log(data)
         }
     }
 
-    private updateCalculatorDisplay(data: any) {
-        this.calculatorView.updateCalculatorDisplay(data);
-    }
-
     private setCalculatorView() {
         this.addChild(this.calculatorView);
     }
-
-    private setCalculatorFactory() {
-        this.calaculatorFactory = new CalculatorFactory(this.calculatorView);
-    }
-
-    private setControllerObserver() {
-        this.calculatorModel.addObserver(this.updateCalculatorDisplay.bind(this));
-    }
-
 }
