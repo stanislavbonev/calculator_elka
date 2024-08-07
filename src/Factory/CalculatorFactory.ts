@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
-import {elka103,elka1300} from "../CalculatorType/CalculatorType"
+import { elka103 } from "../CalculatorType/Elka103";
+import { elka1300 } from "../CalculatorType/Elka1300";
 import { CalculatorEvents } from "../CalculatorEvents";
 import { EventDispatcher } from "../EventDispatcher";
 import { NumericButton } from "../Buttons/NumericButton";
@@ -7,16 +8,16 @@ import { OperatorButton } from "../Buttons/OperatorButton";
 import { CalculatorView } from '../CalculatorView/CalculatorView';
 import { CalculatorDisplay } from "../CalculatorDisplay/CalculatorDisplay";
 import { CalculatorBackground } from "../CalculatorBackground/CalculatorBackground";
-import { Elka103 } from "../CalculatorType/CalculatorType"
+import { IElkaCalculator } from '../Interfaces';
+
 export class CalculatorFactory extends PIXI.Container {
 
     private button: (NumericButton | OperatorButton);
     private buttons: (NumericButton | OperatorButton)[] = [];
     private calculatorView: CalculatorView;
-    private calculatorType: any;
-    public display:any
+    private calculatorType: IElkaCalculator;
 
-    constructor(calculatorType:any) {
+    constructor(calculatorType:IElkaCalculator) {
         super();
         this.calculatorType = calculatorType;
     }
@@ -27,7 +28,7 @@ export class CalculatorFactory extends PIXI.Container {
 
     private createCalculatorButtons() {
         let index: number = 0;
-console.log(this.calculatorType.buttons.length)
+
         const calculatorView:PIXI.Container = new PIXI.Container()
 
         for (let rows = 0; rows < this.calculatorType.rows; rows++) {
@@ -65,16 +66,7 @@ console.log(this.calculatorType.buttons.length)
             }
         }
 
-        const background = new CalculatorBackground(
-            this.calculatorType.background.backgroundWidth,
-            this.calculatorType.background.backgroundHeight,
-            this.calculatorType.background.backgroundColor,
-            this.calculatorType.background.backgroundRadius,
-            this.calculatorType.background.outlineWidth,
-            this.calculatorType.background.outlineHeight,
-            this.calculatorType.background.outlineRadius,
-            this.calculatorType.background.outlineColor,
-        )
+        const background = new CalculatorBackground(this.calculatorType)
 
         const buttonContainer:PIXI.Container = new PIXI.Container();
 
@@ -86,20 +78,11 @@ console.log(this.calculatorType.buttons.length)
 
         buttonContainer.x=8;
         buttonContainer.y=140;
-        buttonContainer.scale.set(0.7)
+       // buttonContainer.scale.set(0.7)
         calculatorView.addChild(buttonContainer)
 
-        this.display = new CalculatorDisplay(
-            this.calculatorType.display.displayWidth,
-            this.calculatorType.display.displayHeight,
-            this.calculatorType.display.displayRadius,
-            this.calculatorType.display.digitsColor,
-            this.calculatorType.display.frontCoverColor,
-            this.calculatorType.display.maxDigits,
-            this.calculatorType.display.positionX,
-            this.calculatorType.display.positionY
-        ) 
-        calculatorView.addChild(this.display)
+        const display = new CalculatorDisplay(this.calculatorType) 
+        calculatorView.addChild(display)
 
         return calculatorView;
     }
