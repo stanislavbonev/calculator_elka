@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import elka103 from "../CalculatorType/CalculatorType"
+import {elka103,elka1300} from "../CalculatorType/CalculatorType"
 import { CalculatorEvents } from "../CalculatorEvents";
 import { EventDispatcher } from "../EventDispatcher";
 import { NumericButton } from "../Buttons/NumericButton";
@@ -15,10 +15,10 @@ export class CalculatorFactory extends PIXI.Container {
     private calculatorView: CalculatorView;
     private calculatorType: any;
     public display:any
-    constructor(calculatorType:any ) {
+
+    constructor(calculatorType:any) {
         super();
         this.calculatorType = calculatorType;
-  
     }
 
     public returnView() {
@@ -27,6 +27,7 @@ export class CalculatorFactory extends PIXI.Container {
 
     private createCalculatorButtons() {
         let index: number = 0;
+console.log(this.calculatorType.buttons.length)
         const calculatorView:PIXI.Container = new PIXI.Container()
 
         for (let rows = 0; rows < this.calculatorType.rows; rows++) {
@@ -34,25 +35,33 @@ export class CalculatorFactory extends PIXI.Container {
             for (let columns = 0; columns < this.calculatorType.columns; columns++) {
 
                 index = rows * this.calculatorType.columns + columns;
-                
-                if (typeof this.calculatorType.buttons[index].type === 'number') {
+
+                // if(this.calculatorType.buttons[index].type === 'empty'){
+                //     //columns++
+                //     console.log(columns,'propuskameeeeeee')
+                // }
+
+                if (this.calculatorType.buttons[index].type === 'number') {
                     this.button = new NumericButton(
-                        this.calculatorType.buttons[index].type, 
+                        this.calculatorType.buttons[index].label, 
                         columns * 60, 
                         rows * 60,
                         this.calculatorType.buttons[index].color
                         );
-                    this.buttons.push(this.button);
+                        this.buttons.push(this.button);
                 }
 
-                if (typeof this.calculatorType.buttons[index].type === 'string') {
+                if (this.calculatorType.buttons[index].type === 'operator') {
                     this.button = new OperatorButton(
-                        this.calculatorType.buttons[index].type,
+                        this.calculatorType.buttons[index].label,
                         columns * 60,
                         rows * 60,
                         this.calculatorType.buttons[index].color);
-                    this.buttons.push(this.button);
+                        this.buttons.push(this.button);
                 }
+                // if (this.calculatorType.buttons[index].type === 'empty') {
+                //  columns++
+                // }
             }
         }
 
@@ -66,6 +75,7 @@ export class CalculatorFactory extends PIXI.Container {
             this.calculatorType.background.outlineRadius,
             this.calculatorType.background.outlineColor,
         )
+
         const buttonContainer:PIXI.Container = new PIXI.Container();
 
         calculatorView.addChild(background);
@@ -76,6 +86,7 @@ export class CalculatorFactory extends PIXI.Container {
 
         buttonContainer.x=8;
         buttonContainer.y=140;
+        buttonContainer.scale.set(0.7)
         calculatorView.addChild(buttonContainer)
 
         this.display = new CalculatorDisplay(

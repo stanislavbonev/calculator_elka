@@ -10,7 +10,7 @@ import { text } from 'stream/consumers';
 import { CalculatorEvents } from "../CalculatorEvents";
 import { EventDispatcher } from "../EventDispatcher";
 import { CalculatorFactory } from "../Factory/CalculatorFactory"
-import elka103 from "../CalculatorType/CalculatorType"
+import {elka103, elka1300} from "../CalculatorType/CalculatorType"
 
 export class CalculatorView extends PIXI.Container {
 
@@ -38,7 +38,7 @@ export class CalculatorView extends PIXI.Container {
     }
 
     private createButtons() {
-       this.calculatorView = new CalculatorFactory(elka103).returnView();
+       this.calculatorView = new CalculatorFactory(elka1300).returnView();
        this.calculatorView.x = 800;
        this.calculatorView.y = 100;
 
