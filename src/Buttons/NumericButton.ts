@@ -8,13 +8,13 @@ export class NumericButton extends BaseButton {
     private button: PIXI.Sprite;
     private buttonText: PIXI.Text;
     private buttonContainer:PIXI.Container;
-    private label: number;
+    private label: string | number;
     private xPos: number;
     private yPos: number;
     private gap: PIXI.Sprite;
     private color:number;
 
-    constructor(label: number, x: number, y: number,color:number) {
+    constructor(label: string | number, x: number, y: number,color:number) {
         super();
         this.label = label;
         this.xPos = x;

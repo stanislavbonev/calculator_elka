@@ -8,12 +8,12 @@ export class OperatorButton extends BaseButton {
     private button: PIXI.Sprite;
     private buttonText: PIXI.Text;
     private buttonContainer: PIXI.Container;
-    private label: string;
+    private label: string | number;
     private xPos: number;
     private yPos: number;
     private color: number;
 
-    constructor(label: string, x: number, y: number,color:number) {
+    constructor(label: string | number, x: number, y: number,color:number) {
         super();
         this.label = label;
         this.xPos = x;
