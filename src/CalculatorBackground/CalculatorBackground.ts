@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { GameApplication } from "../GameApplication";
+import { IElkaCalculator } from '../Interfaces';
 
 export class CalculatorBackground extends PIXI.Container {
 
@@ -9,6 +10,7 @@ export class CalculatorBackground extends PIXI.Container {
   private backgroundHeight:number;
   private backgroundColor:number;
   private backgroundRadius:number;
+  private backgroundPosY:number;
 
   private outlineWidth:number;
   private outlineHeight:number;
@@ -16,26 +18,18 @@ export class CalculatorBackground extends PIXI.Container {
   private outlineColor:number;
   private metalStrip: PIXI.Sprite;
 
-  constructor(
-    backgroundWidth:number,
-    backgroundHeight:number,
-    backgroundColor:number,
-    backgroundRadius:number,
-    outlineWidth:number,
-    outlineHeight:number,
-    outlineRadius:number,
-    outlineColor:number
-    ) {
+  constructor(data:IElkaCalculator) {
     super();
-    this.backgroundWidth = backgroundWidth;
-    this.backgroundHeight = backgroundHeight;
-    this.backgroundColor = backgroundColor;
-    this.backgroundRadius = backgroundRadius;
+    this.backgroundWidth = data.background.backgroundWidth;
+    this.backgroundHeight = data.background.backgroundHeight;
+    this.backgroundColor = data.background.backgroundColor;
+    this.backgroundRadius = data.background.backgroundRadius;
+    this.backgroundPosY = data.background.backgroundPosY;
 
-    this.outlineWidth = outlineWidth;
-    this.outlineHeight = outlineHeight;
-    this.outlineRadius = outlineRadius;
-    this.outlineColor = outlineColor;
+    this.outlineWidth = data.background.outlineWidth;
+    this.outlineHeight = data.background.outlineHeight;
+    this.outlineRadius = data.background.outlineRadius;
+    this.outlineColor = data.background.outlineColor;
 
     this.init();
   }
@@ -60,6 +54,9 @@ export class CalculatorBackground extends PIXI.Container {
         gfx.endFill();
         const texture:PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx);
         const calcuatorBackground:PIXI.Sprite = new PIXI.Sprite(texture);
+        if(this.backgroundPosY) {
+          calcuatorBackground.y = this.backgroundPosY
+        }
         this.backgroundContainer.addChild(calcuatorBackground)
     }
 
