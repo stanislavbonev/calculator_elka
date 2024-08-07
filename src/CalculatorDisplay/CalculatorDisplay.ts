@@ -4,6 +4,7 @@ import { GameApplication } from "../GameApplication";
 import { EventDispatcher } from '../EventDispatcher';
 import { CalculatorEvents } from '../CalculatorEvents';
 import gsap from 'gsap';
+import { IElkaCalculator } from '../Interfaces';
 
 export class CalculatorDisplay extends PIXI.Container {
 
@@ -22,26 +23,17 @@ export class CalculatorDisplay extends PIXI.Container {
 
     private maxDigits:number;
 
-    constructor(
-        displayWidth:number,
-        displayHeight:number,
-        displayRadius:number,
-        digitsColor:number,
-        frontCoverColor:number,
-        maxDigits:number,
-        positionX:number,
-        positionY:number
-        ) {
+    constructor(data:IElkaCalculator) {
         super();
 
-        this.displayWidth = displayWidth;
-        this.displayHeight = displayHeight;
-        this.displayRadius = displayRadius;
-        this.digitsColor = digitsColor;
-        this.frontCoverColor = frontCoverColor;
-        this.maxDigits = maxDigits;
-        this.positionX = positionX;
-        this.positionY = positionY;
+        this.displayWidth = data.display.displayWidth;
+        this.displayHeight = data.display.displayHeight;
+        this.displayRadius = data.display.displayRadius;
+        this.digitsColor = data.display.digitsColor;
+        this.frontCoverColor = data.display.frontCoverColor;
+        this.maxDigits = data.display.maxDigits;
+        this.positionX = data.display.positionX;
+        this.positionY = data.display.positionY;
 
         this.init()
     }
