@@ -37,11 +37,6 @@ export class CalculatorFactory extends PIXI.Container {
 
                 index = rows * this.calculatorType.columns + columns;
 
-                // if(this.calculatorType.buttons[index].type === 'empty'){
-                //     //columns++
-                //     console.log(columns,'propuskameeeeeee')
-                // }
-
                 if (this.calculatorType.buttons[index].type === 'number') {
                     this.button = new NumericButton(
                         this.calculatorType.buttons[index].label, 
@@ -60,9 +55,6 @@ export class CalculatorFactory extends PIXI.Container {
                         this.calculatorType.buttons[index].color);
                         this.buttons.push(this.button);
                 }
-                // if (this.calculatorType.buttons[index].type === 'empty') {
-                //  columns++
-                // }
             }
         }
 
@@ -78,7 +70,7 @@ export class CalculatorFactory extends PIXI.Container {
 
         buttonContainer.x=8;
         buttonContainer.y=140;
-       // buttonContainer.scale.set(0.7)
+  
         calculatorView.addChild(buttonContainer)
 
         const display = new CalculatorDisplay(this.calculatorType) 
