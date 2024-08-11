@@ -30,6 +30,8 @@ export interface Background {
 
 export interface IElkaCalculator {
     buttons: Button[],
+    buttonsPosX?:number,
+    buttonsPosY?:number,
     rows: number,
     columns: number
     display: Display,

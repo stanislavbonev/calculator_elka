@@ -9,17 +9,15 @@ import { CalculatorView } from '../CalculatorView/CalculatorView';
 import { CalculatorDisplay } from "../CalculatorDisplay/CalculatorDisplay";
 import { CalculatorBackground } from "../CalculatorBackground/CalculatorBackground";
 import { IElkaCalculator } from '../Interfaces';
+import { Button } from '../Buttons/ButtonEnums';
 
 export class CalculatorFactory extends PIXI.Container {
 
     private button: (NumericButton | OperatorButton);
     private buttons: (NumericButton | OperatorButton)[] = [];
-    private calculatorView: CalculatorView;
-    private calculatorType: IElkaCalculator;
 
-    constructor(calculatorType:IElkaCalculator) {
+    constructor(private readonly calculatorType:IElkaCalculator) {
         super();
-        this.calculatorType = calculatorType;
     }
 
     public returnView() {
@@ -37,7 +35,7 @@ export class CalculatorFactory extends PIXI.Container {
 
                 index = rows * this.calculatorType.columns + columns;
 
-                if (this.calculatorType.buttons[index].type === 'number') {
+                if (this.calculatorType.buttons[index].type === Button.Number) {
                     this.button = new NumericButton(
                         this.calculatorType.buttons[index].label, 
                         columns * 60, 
@@ -47,7 +45,7 @@ export class CalculatorFactory extends PIXI.Container {
                         this.buttons.push(this.button);
                 }
 
-                if (this.calculatorType.buttons[index].type === 'operator') {
+                if (this.calculatorType.buttons[index].type === Button.Operator) {
                     this.button = new OperatorButton(
                         this.calculatorType.buttons[index].label,
                         columns * 60,
@@ -69,7 +67,10 @@ export class CalculatorFactory extends PIXI.Container {
         })
 
         buttonContainer.x=8;
-        buttonContainer.y=140;
+        if(this.calculatorType.buttonsPosY) {
+            buttonContainer.y=this.calculatorType.buttonsPosY;
+        }
+        
   
         calculatorView.addChild(buttonContainer)
 

@@ -169,6 +169,7 @@ export const elka1300: IElkaCalculator = {
     }],
     rows: 4,
     columns: 8,
+    buttonsPosY: 180,
     display: {
         displayWidth:230,
         displayHeight:50,
@@ -180,12 +181,12 @@ export const elka1300: IElkaCalculator = {
         positionY: 10,
     },
     background:{
-        backgroundWidth:350,
-        backgroundHeight:480,
+        backgroundWidth:490,
+        backgroundHeight:300,
         backgroundColor:0x000000,
         backgroundRadius:10,
-        backgroundPosY:100,
-        outlineWidth:260,
+        backgroundPosY:150,
+        outlineWidth:490,
         outlineHeight:485,
         outlineRadius:10,
         outlineColor:0xFF5733

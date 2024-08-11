@@ -24,8 +24,8 @@ export class BasicCalculatorButton extends BaseButton {
         this.createButton();
         this.createLabel();
         this.onHover();
-        this.button.on('mousedown', this.onClickDown, this);
-        this.button.on('mouseup', this.onClickUp, this);
+        this.button.on('pointerdown', this.onClickDown, this);
+        this.button.on('pointerup', this.onClickUp, this);
     }
     //TODO IMPROVE INHERITANCE FROM BASE BUTTON REPEATABLE CODE FOR BUTTON APEARENCE
     protected createButton() {

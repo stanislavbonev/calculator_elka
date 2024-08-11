@@ -30,7 +30,7 @@ export class OperatorButton extends BaseButton {
         this.createButton();
         this.createLabel();
   
-        this.button.on('click', this.onClick, this)
+        this.button.on('pointerup', this.onClick, this)
     }
     //TODO IMPROVE INHERITANCE FROM BASE BUTTON REPEATABLE CODE FOR BUTTON APEARENCE
     protected createButton() {

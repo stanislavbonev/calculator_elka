@@ -4,8 +4,6 @@ import  calcOperations  from "../SimpleBrain/SimpleBrain";
 
 export class CalculatorModel {
 
-    private observers: ((data: any) => void)[] = [];
-
     private memory: string="0";
     private total: string="0";
     private operator:string="";
@@ -40,7 +38,6 @@ export class CalculatorModel {
     }
 
     private setTotal(data:string) {
-
         this.total = data;
         EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.UPDATE_DISPLAY, this.total);
     }
@@ -91,10 +88,6 @@ export class CalculatorModel {
         this.numbers.push(data);
         this.stringifiedNumbers = this.numbers.join("");
         return this.stringifiedNumbers;
-    }
-
-    public addObserver(observer: (data: any) => void): void {
-        this.observers.push(observer);
     }
 
     private toFixedTrimmed(num:number, digits:number) {

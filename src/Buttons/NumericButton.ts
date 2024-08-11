@@ -31,7 +31,7 @@ export class NumericButton extends BaseButton {
         this.createButton();
         this.createLabel();
     
-        this.button.on('mouseup', this.onClick, this)
+        this.button.on('pointerup', this.onClick, this)
     }
     //TODO IMPROVE INHERITANCE FROM BASE BUTTON REPEATABLE CODE FOR BUTTON APEARENCE
     protected createButton() {
