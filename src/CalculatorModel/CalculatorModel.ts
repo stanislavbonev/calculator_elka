@@ -17,7 +17,12 @@ export class CalculatorModel {
     private numbers: number[] = [];
     private stringifiedNumbers: string;
 
-    constructor() { }
+    constructor() { 
+        EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.SET_OPERATOR,this.setOperator.bind(this))
+        EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.CLEAR_MEMORY,this.clearMemory.bind(this))
+        EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.CALCULATE_RESULT,this.calculateResult.bind(this))
+        EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.SET_DISPLAY_DATA,this.setDisplayData.bind(this))
+    }
 
     public setOperator(data:string) {
 

@@ -5,13 +5,13 @@ import { CalculatorModel } from './CalculatorModel/CalculatorModel';
 
 export class GameApplication extends PIXI.Application {
 
-    public static STAGE_WIDTH: number = 1280;
-    public static STAGE_HEIGHT: number = 768;
+    public static STAGE_WIDTH: number = 800;
+    public static STAGE_HEIGHT: number = 600;
 
     private static app: GameApplication;
     private mainContainer: PIXI.Container;
     private controller: CalculatorController;
-
+    private scale: number;
     constructor() {
         super(GameApplication.getAppOptions());
         this.init();
@@ -22,8 +22,10 @@ export class GameApplication extends PIXI.Application {
     }
 
     private init() {
+        (globalThis as any).__PIXI_APP__ = this; 
         GameApplication.app = this;
         this.mainContainer = new PIXI.Container();
+        this.mainContainer.name = 'ALOOOOU'
        
         this.loader = new PIXI.Loader();
         const texture: PIXI.Texture = PIXI.Texture.from('./assets/image/fidel_jivkov_1.jpg');
@@ -35,9 +37,10 @@ export class GameApplication extends PIXI.Application {
         const frame=new PIXI.Sprite(textre1)
         frame.width=500
         frame.height = 600
-       
-        this.mainContainer.addChild(TodorJivkov);
-        this.mainContainer.addChild(frame);
+    //    this.stage.scale.set(this.scale)
+
+       this.mainContainer.addChild(TodorJivkov);
+       this.mainContainer.addChild(frame);
         this.onLoadComplete();
 
         window.onload = () => {
@@ -57,19 +60,47 @@ export class GameApplication extends PIXI.Application {
     private static getAppOptions() {
         return {
             backgroundColor: 0x808080,
-            width: GameApplication.STAGE_WIDTH,
-            height: GameApplication.STAGE_HEIGHT,
+           resizeTo:window
+            // width: GameApplication.STAGE_WIDTH,
+            // height: GameApplication.STAGE_HEIGHT,
         }
     }
 
     private resizeCanvas(): void {
+        //let abv
+    //    const scaleX = window.innerWidth / GameApplication.getApp().screen.width
+    //    const scaleY = window.innerHeight / GameApplication.getApp().screen.height
+    //    const scale1 = Math.min(scaleX,scaleY);
+    //    console.log(scale1,"LLLLLLLLLLLLLL")
+        GameApplication.getApp().screen.height
         const resize = () => {
-            this.renderer.resize(GameApplication.STAGE_WIDTH, GameApplication.STAGE_HEIGHT);
+            //this.renderer.resize(window.innerWidth, window.innerHeight);
+             this.renderer.resize(GameApplication.STAGE_WIDTH, GameApplication.STAGE_HEIGHT);
+            console.log("RESIZEEEEEEEEEEEEEEEEEEEEE")
+           //  this.scale = Math.min(window.screen.availWidth / window.innerWidth, window.screen.availHeight / window.innerHeight)
+             console.log(this.scale)
+             console.log(window.innerWidth )
+             console.log(window.innerHeight )
+             console.log(window.screen.availWidth ,"TTTTTTTTTTTTTTTT")
+             console.log(window.screen.availHeight ,"TTTTTTTTTTTTTTTT")
+            //  this.stage.height = window.screen.availWidth
+            //  this.stage.width = window.screen.availWidth
+
+            const scaleX = window.innerWidth / GameApplication.getApp().screen.width
+            const scaleY = window.innerHeight / GameApplication.getApp().screen.height
+            const scale1 = Math.min(scaleX,scaleY);
+            this.mainContainer.scale.set(scale1)
+
+            this.mainContainer.position.set(
+                (window.innerWidth -   GameApplication.getApp().screen.width * scale1) / 2,
+                (window.innerHeight -   GameApplication.getApp().screen.height * scale1) / 2
+            );
+
         };
 
         resize();
 
-        window.addEventListener("resize", resize);
+        window.addEventListener("resize", resize.bind(this));
     }
 
     private loadAssets() {
@@ -77,10 +108,11 @@ export class GameApplication extends PIXI.Application {
     }
 
     private onLoadComplete() {
+        const controller = new CalculatorController();
         const model: CalculatorModel = new CalculatorModel();
         const view: CalculatorView = new CalculatorView();
-        const controller = new CalculatorController(model,view,);
-        this.mainContainer.addChild(controller);
+
+        this.mainContainer.addChild(view);
     }
 
 }

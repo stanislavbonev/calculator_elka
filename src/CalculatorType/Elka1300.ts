@@ -119,7 +119,7 @@ export const elka1300: IElkaCalculator = {
     },
     {
         type:Button.Operator,
-        label:"X",
+        label:"x",
         color:0x232B2B
     },
     {
