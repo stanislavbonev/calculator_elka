@@ -21,10 +21,10 @@ export class CalculatorFactory extends PIXI.Container {
     }
 
     public returnView() {
-        return this.createCalculatorButtons()
+        return this.createCalculatorView()
     }
 
-    private createCalculatorButtons() {
+    private createCalculatorView():PIXI.Container {
         let index: number = 0;
 
         const calculatorView:PIXI.Container = new PIXI.Container()

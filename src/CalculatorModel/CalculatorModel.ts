@@ -47,7 +47,10 @@ export class CalculatorModel {
         this.leftOperandSet = true
     }
 
-    public setDisplayData(data: any): void {
+    public setDisplayData(data: number): void {
+        if(this.numbers.length >= 10) {
+            return;
+        }
         this.memory = this.formatInputKeyboardData(data);
 
         if(!this.operatorSet) {
@@ -55,7 +58,7 @@ export class CalculatorModel {
             this.leftOperandSet = true;
         }
 
-        if(this.operatorSet){
+        if(this.operatorSet) {
             this.rightOperand = this.memory
             this.rightOperandSet = true;
         }
