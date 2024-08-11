@@ -31,8 +31,9 @@ export class CalculatorView extends PIXI.Container {
 
     private createCalculator() {
        this.calculatorView = new CalculatorFactory(elka1300).returnView();
-       this.calculatorView.x = 600;
-       this.calculatorView.y = 100;
+       this.calculatorView.name = 'elka'
+       //this.calculatorView.x = 600;
+       //this.calculatorView.y = 100;
        this.addChild( this.calculatorView)
     }
 
