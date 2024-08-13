@@ -25,16 +25,17 @@ export class CalculatorView extends PIXI.Container {
 
     private init() {
        //this.createContainer();
-       this.createCalculatorSelectorButtons();
+      // this.createCalculatorSelectorButtons();
        this.createPowerButton();
     }
 
     private createCalculator() {
        this.calculatorView = new CalculatorFactory(elka1300).returnView();
        this.calculatorView.name = 'elka'
+       this.calculatorView.pivot.set(this.calculatorView.width /2,this.calculatorView.height /2 )
        //this.calculatorView.x = 600;
        //this.calculatorView.y = 100;
-       this.addChild( this.calculatorView)
+       this.addChild(this.calculatorView)
     }
 
     private createCalculatorSelectorButtons() {

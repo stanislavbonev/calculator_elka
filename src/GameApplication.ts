@@ -2,16 +2,18 @@ import * as PIXI from 'pixi.js';
 import { CalculatorView } from "./CalculatorView/CalculatorView";
 import { CalculatorController } from './CalculatorController/CalculatorController';
 import { CalculatorModel } from './CalculatorModel/CalculatorModel';
+import { BasicCalculatorButton } from './Buttons/BasicCalculatorButton';
 
 export class GameApplication extends PIXI.Application {
 
-    public static STAGE_WIDTH: number = 800;
-    public static STAGE_HEIGHT: number = 600;
+    public static STAGE_WIDTH: number = 2048;
+    public static STAGE_HEIGHT: number = 2048;
 
     private static app: GameApplication;
     private mainContainer: PIXI.Container;
     private controller: CalculatorController;
     private scale: number;
+    private calcView:any
     constructor() {
         super(GameApplication.getAppOptions());
         this.init();
@@ -37,10 +39,9 @@ export class GameApplication extends PIXI.Application {
         const frame=new PIXI.Sprite(textre1)
         frame.width=500
         frame.height = 600
-    //    this.stage.scale.set(this.scale)
 
-       this.mainContainer.addChild(TodorJivkov);
-       this.mainContainer.addChild(frame);
+    //    this.mainContainer.addChild(TodorJivkov);
+    //    this.mainContainer.addChild(frame);
         this.onLoadComplete();
 
         window.onload = () => {
@@ -60,42 +61,37 @@ export class GameApplication extends PIXI.Application {
     private static getAppOptions() {
         return {
             backgroundColor: 0x808080,
-           resizeTo:window
+              // resizeTo:window
+             width: window.screen.availWidth,
+              height: window.screen.availHeight,
             // width: GameApplication.STAGE_WIDTH,
-            // height: GameApplication.STAGE_HEIGHT,
+            //  height: GameApplication.STAGE_HEIGHT,
         }
     }
 
     private resizeCanvas(): void {
-        //let abv
-    //    const scaleX = window.innerWidth / GameApplication.getApp().screen.width
-    //    const scaleY = window.innerHeight / GameApplication.getApp().screen.height
-    //    const scale1 = Math.min(scaleX,scaleY);
-    //    console.log(scale1,"LLLLLLLLLLLLLL")
-        GameApplication.getApp().screen.height
         const resize = () => {
-            //this.renderer.resize(window.innerWidth, window.innerHeight);
-             this.renderer.resize(GameApplication.STAGE_WIDTH, GameApplication.STAGE_HEIGHT);
-            console.log("RESIZEEEEEEEEEEEEEEEEEEEEE")
-           //  this.scale = Math.min(window.screen.availWidth / window.innerWidth, window.screen.availHeight / window.innerHeight)
-             console.log(this.scale)
+            // this.renderer.resize(GameApplication.STAGE_WIDTH, GameApplication.STAGE_HEIGHT);
+             this.renderer.resize( window.screen.availWidth, window.screen.availHeight);
              console.log(window.innerWidth )
              console.log(window.innerHeight )
              console.log(window.screen.availWidth ,"TTTTTTTTTTTTTTTT")
              console.log(window.screen.availHeight ,"TTTTTTTTTTTTTTTT")
-            //  this.stage.height = window.screen.availWidth
-            //  this.stage.width = window.screen.availWidth
-
-            const scaleX = window.innerWidth / GameApplication.getApp().screen.width
-            const scaleY = window.innerHeight / GameApplication.getApp().screen.height
-            const scale1 = Math.min(scaleX,scaleY);
-            this.mainContainer.scale.set(scale1)
-
-            this.mainContainer.position.set(
-                (window.innerWidth -   GameApplication.getApp().screen.width * scale1) / 2,
-                (window.innerHeight -   GameApplication.getApp().screen.height * scale1) / 2
-            );
-
+             console.log(GameApplication.getApp().screen.width,"uuuuuuuuuuuuu")
+             console.log(GameApplication.getApp().screen.height ,"iiiiiiiiiiiiiiiii")
+            //   this.calcView.x = window.screen.availWidth /2
+            //   this.calcView.y = window.screen.availHeight /2
+              console.log(this.calcView.width)
+              console.log(this.calcView.height)
+            this.mainContainer.x =  window.screen.availWidth /2
+            this.mainContainer.y =  window.screen.availHeight /2
+             const scaleX =   495/window.screen.availWidth;
+             const scaleY =   485 /window.screen.availHeight;
+             const scale = Math.min(scaleX, scaleY);
+            console.log(scale)
+             // Apply the scale to the stage
+           this.calcView.scale.set(1.2);
+            this.mainContainer.scale.set(scale);
         };
 
         resize();
@@ -108,11 +104,15 @@ export class GameApplication extends PIXI.Application {
     }
 
     private onLoadComplete() {
+        const btn: BasicCalculatorButton = new BasicCalculatorButton("Elka 101", 0, 0)
+        this.mainContainer.addChild(btn);
         const controller = new CalculatorController();
         const model: CalculatorModel = new CalculatorModel();
-        const view: CalculatorView = new CalculatorView();
+      //  const view: CalculatorView = new CalculatorView();
+        this.calcView = new CalculatorView();
 
-        this.mainContainer.addChild(view);
+        this.mainContainer.addChild(this.calcView);
+        //this.mainContainer.addChild(view);
     }
 
 }
