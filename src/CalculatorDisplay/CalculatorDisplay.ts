@@ -8,22 +8,22 @@ import { IElkaCalculator } from '../Interfaces';
 
 export class CalculatorDisplay extends PIXI.Container {
 
-    private container:PIXI.Container;
-    private calculatorDisplay:PIXI.Sprite;
-    private displayNumericsEmpty:PIXI.Text;
-    private displayNumerics:PIXI.Text;
+    private container: PIXI.Container;
+    private calculatorDisplay: PIXI.Sprite;
+    private displayNumericsEmpty: PIXI.Text;
+    private displayNumerics: PIXI.Text;
 
-    private displayWidth:number;
-    private displayHeight:number;
-    private displayRadius:number;
-    private positionX:number
-    private positionY:number
-    private digitsColor:number;
-    private frontCoverColor:number;
+    private displayWidth: number;
+    private displayHeight: number;
+    private displayRadius: number;
+    private positionX: number
+    private positionY: number
+    private digitsColor: number;
+    private frontCoverColor: number;
 
-    private maxDigits:number;
+    private maxDigits: number;
 
-    constructor(data:IElkaCalculator) {
+    constructor(data: IElkaCalculator) {
         super();
 
         this.displayWidth = data.display.displayWidth;
@@ -55,7 +55,7 @@ export class CalculatorDisplay extends PIXI.Container {
     private createCalculatorDisplayBackground() {
         const gfx: PIXI.Graphics = new PIXI.Graphics();
         gfx.beginFill(0x171717);
-        gfx.drawRoundedRect(0, 0,this.displayWidth,this.displayHeight,this.displayRadius);
+        gfx.drawRoundedRect(0, 0, this.displayWidth, this.displayHeight, this.displayRadius);
         gfx.endFill();
         const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx);
         this.calculatorDisplay = new PIXI.Sprite(texture);
@@ -66,7 +66,7 @@ export class CalculatorDisplay extends PIXI.Container {
     private createClaculatorDisplayFrontCover() {
         const gfx: PIXI.Graphics = new PIXI.Graphics();
         gfx.beginFill(this.frontCoverColor);
-        gfx.drawRoundedRect(0, 0, this.calculatorDisplay.width, this.calculatorDisplay.height,this.displayRadius);
+        gfx.drawRoundedRect(0, 0, this.calculatorDisplay.width, this.calculatorDisplay.height, this.displayRadius);
         gfx.endFill();
         const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx);
         const calculatorDisplayCover = new PIXI.Sprite(texture);
@@ -75,18 +75,31 @@ export class CalculatorDisplay extends PIXI.Container {
     }
 
     private calcuatorDisplayEmptyDigits() {
-        let digits:string = '';
-        for(let i = 0; i <= this.maxDigits; i++){
+        let digits: string = '';
+        for (let i = 0; i <= this.maxDigits; i++) {
             digits += "8"
         }
 
         this.displayNumericsEmpty = new PIXI.Text(digits);
         this.displayNumericsEmpty.style = new TextStyle({
-        fill: 0x000000,
-        fontFamily: 'Digital-7',
-        fontSize: 40,
+            fill: 0x000000,
+            fillGradientType: 1,
+            fillGradientStops: [
+                0.9,
+                2,
+                5
+            ],
+            fontFamily: "Digital-7",
+            fontSize: 40,
+            letterSpacing: 1,
+            lineJoin: "round",
+            stroke: 0x91212c,
+            strokeThickness: 3
+            // fill: 0x000000,
+            // fontFamily: 'Digital-7',
+            // fontSize: 40,
         })
-        this.displayNumericsEmpty.anchor.set(1,0.5);
+        this.displayNumericsEmpty.anchor.set(1, 0.5);
         this.displayNumericsEmpty.x = this.calculatorDisplay.width;
         this.displayNumericsEmpty.y = this.calculatorDisplay.height / 2;
         this.displayNumericsEmpty.resolution = 10;
@@ -96,26 +109,40 @@ export class CalculatorDisplay extends PIXI.Container {
     private createCalculatorDisplayNumericals() {
         this.displayNumerics = new PIXI.Text("0");
         this.displayNumerics.style = new TextStyle({
-        fill: this.digitsColor,
-        fontFamily: 'Digital-7',
-        fontSize: 40,
+            fill: 0xf93e3e,
+            fillGradientType: 1,
+            fillGradientStops: [
+                0.9,
+                2,
+                5
+            ],
+            fontFamily: "Digital-7",
+            fontSize: 40,
+            letterSpacing: 1,
+            lineJoin: "round",
+            stroke: 0x91212c,
+            strokeThickness: 3
+            // fill: this.digitsColor,
+            // fontFamily: 'Digital-7',
+            // fontSize: 40,
         })
-//     const glowFilter = new GlowFilter({
-//         distance: 10,
-//         outerStrength: 2,
-//         color: 0x750000,
-// });
-//         this.displayNumerics.filters = [glowFilter as unknown as PIXI.Filter];
-        this.displayNumerics.anchor.set(1,0.5);
+        console.log(this.displayNumerics.style)
+        //     const glowFilter = new GlowFilter({
+        //         distance: 10,
+        //         outerStrength: 2,
+        //         color: 0x750000,
+        // });
+        //         this.displayNumerics.filters = [glowFilter as unknown as PIXI.Filter];
+        this.displayNumerics.anchor.set(1, 0.5);
         this.displayNumerics.x = this.calculatorDisplay.width;
         this.displayNumerics.y = this.calculatorDisplay.height / 2;
         this.displayNumerics.resolution = 10;
         this.calculatorDisplay.addChild(this.displayNumerics);
     }
 
-    public setDislay(data:any){
+    public setDislay(data: any) {
         this.displayNumerics.text = data;
-       this.displayNumerics.alpha = 0;
-        gsap.to(this.displayNumerics, {alpha:1, duration:0.5})
+        this.displayNumerics.alpha = 0;
+        gsap.to(this.displayNumerics, { alpha: 1, duration: 0.5 })
     }
 }

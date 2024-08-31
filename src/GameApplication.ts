@@ -13,7 +13,7 @@ export class GameApplication extends PIXI.Application {
     private mainContainer: PIXI.Container;
     private controller: CalculatorController;
     private scale: number;
-    private calcView:any
+    private calcView: any
     constructor() {
         super(GameApplication.getAppOptions());
         this.init();
@@ -24,24 +24,14 @@ export class GameApplication extends PIXI.Application {
     }
 
     private init() {
-        (globalThis as any).__PIXI_APP__ = this; 
+        (globalThis as any).__PIXI_APP__ = this;
         GameApplication.app = this;
         this.mainContainer = new PIXI.Container();
         this.mainContainer.name = 'ALOOOOU'
-       
+        this.mainContainer.width = 2048
+        this.mainContainer.height = 2048
         this.loader = new PIXI.Loader();
-        const texture: PIXI.Texture = PIXI.Texture.from('./assets/image/fidel_jivkov_1.jpg');
-        const TodorJivkov= new PIXI.Sprite(texture);
-        TodorJivkov.x=70;
-        TodorJivkov.y=90;
-        TodorJivkov.scale.set(0.8);
-        const textre1:PIXI.Texture = PIXI.Texture.from('./assets/image/empty_frame.png');
-        const frame=new PIXI.Sprite(textre1)
-        frame.width=500
-        frame.height = 600
 
-    //    this.mainContainer.addChild(TodorJivkov);
-    //    this.mainContainer.addChild(frame);
         this.onLoadComplete();
 
         window.onload = () => {
@@ -61,9 +51,9 @@ export class GameApplication extends PIXI.Application {
     private static getAppOptions() {
         return {
             backgroundColor: 0x808080,
-              // resizeTo:window
-             width: window.screen.availWidth,
-              height: window.screen.availHeight,
+            resizeTo: window
+            // width: window.screen.availWidth,
+            // height: window.screen.availHeight,
             // width: GameApplication.STAGE_WIDTH,
             //  height: GameApplication.STAGE_HEIGHT,
         }
@@ -72,26 +62,19 @@ export class GameApplication extends PIXI.Application {
     private resizeCanvas(): void {
         const resize = () => {
             // this.renderer.resize(GameApplication.STAGE_WIDTH, GameApplication.STAGE_HEIGHT);
-             this.renderer.resize( window.screen.availWidth, window.screen.availHeight);
-             console.log(window.innerWidth )
-             console.log(window.innerHeight )
-             console.log(window.screen.availWidth ,"TTTTTTTTTTTTTTTT")
-             console.log(window.screen.availHeight ,"TTTTTTTTTTTTTTTT")
-             console.log(GameApplication.getApp().screen.width,"uuuuuuuuuuuuu")
-             console.log(GameApplication.getApp().screen.height ,"iiiiiiiiiiiiiiiii")
-            //   this.calcView.x = window.screen.availWidth /2
-            //   this.calcView.y = window.screen.availHeight /2
-              console.log(this.calcView.width)
-              console.log(this.calcView.height)
-            this.mainContainer.x =  window.screen.availWidth /2
-            this.mainContainer.y =  window.screen.availHeight /2
-             const scaleX =   495/window.screen.availWidth;
-             const scaleY =   485 /window.screen.availHeight;
-             const scale = Math.min(scaleX, scaleY);
-            console.log(scale)
-             // Apply the scale to the stage
-           this.calcView.scale.set(1.2);
+            this.renderer.resize(window.innerWidth, window.innerHeight);
+            console.log(this.mainContainer.width)
+            console.log(this.mainContainer.height)
+            this.mainContainer.x = window.innerWidth / 2
+            this.mainContainer.y = window.innerHeight / 2
+            const scaleX = window.innerWidth / 495;
+            const scaleY = window.innerHeight / 485;
+
+            const scale = Math.min(scaleX, scaleY);
+
+            // Apply the scale to the stage
             this.mainContainer.scale.set(scale);
+            //this.mainContainer.scale.set(scale);
         };
 
         resize();
@@ -100,19 +83,28 @@ export class GameApplication extends PIXI.Application {
     }
 
     private loadAssets() {
-        
+        //   this.loader.add('Digital-7', './assets/fonts/digital-7.ttf');
     }
 
     private onLoadComplete() {
         const btn: BasicCalculatorButton = new BasicCalculatorButton("Elka 101", 0, 0)
+        btn.y = -350
         this.mainContainer.addChild(btn);
         const controller = new CalculatorController();
         const model: CalculatorModel = new CalculatorModel();
-      //  const view: CalculatorView = new CalculatorView();
+        //  const view: CalculatorView = new CalculatorView();
         this.calcView = new CalculatorView();
 
         this.mainContainer.addChild(this.calcView);
         //this.mainContainer.addChild(view);
+        //this.enterFullscreen()
+    }
+
+    private enterFullscreen() {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        }
     }
 
 }
