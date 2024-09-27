@@ -6,14 +6,10 @@ import { BasicCalculatorButton } from './Buttons/BasicCalculatorButton';
 import { resizeContainer } from './ResizeManager';
 export class GameApplication extends PIXI.Application {
 
-    public static STAGE_WIDTH: number = 800;
-    public static STAGE_HEIGHT: number = 600;
-
     private static app: GameApplication;
     private mainContainer: PIXI.Container;
-    private controller: CalculatorController;
-    private scale: number;
     private calcView:PIXI.Container
+
     constructor() {
         super(GameApplication.getAppOptions());
         this.init();
@@ -52,31 +48,21 @@ export class GameApplication extends PIXI.Application {
             this.view.style.left = '50%';
             this.view.style.top = '50%';
             this.view.style.transform = 'translate3d( -50%, -50%, 0 )';
+            this.resizeCanvas();
         };
     }
 
     private static getAppOptions() {
         return {
             backgroundColor: 0x808080,
-               //resizeTo:window
-            //  width: window.screen.availWidth,
-            //   height: window.screen.availHeight,
-            // width: GameApplication.STAGE_WIDTH,
-            //  height: GameApplication.STAGE_HEIGHT,
-            width: document.documentElement.clientWidth,        // CSS width of the window
-            height: document.documentElement.clientHeight,      // CSS height of the window
-            resolution: window.devicePixelRatio || 1,  // Automatically handle high-DPI screens
-            autoDensity: true,               // Makes the canvas density-aware for high-DPI sc
+            resizeTo:window,
+            autoDensity: true,
         }
     }
 
     private resizeCanvas(): void {
-const dpr = window.devicePixelRatio
-
-
-            this.renderer.resize(document.documentElement.clientWidth , document.documentElement.clientHeight);
- 
-            resizeContainer(this.mainContainer)
+        this.renderer.resize(document.documentElement.clientWidth , document.documentElement.clientHeight);
+        resizeContainer(this.mainContainer);
     }
 
     private loadAssets() {

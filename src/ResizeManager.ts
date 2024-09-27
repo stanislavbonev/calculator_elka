@@ -3,31 +3,28 @@ import * as PIXI from 'pixi.js';
 
     export const resizeContainer = (container:Container) => {
 
-    const dpr = window.devicePixelRatio;
-
     const calculatorView = container.children[0] as PIXI.Container
 
-    let coeff = 0;
-           
         if(calculatorView.children.length > 0) {
     
-             if(container.width < window.innerWidth && !isLandscape()) {
+             if(!isLandscape) {
+                const scaleX =    window.innerWidth / 260;
+                const scaleY =    window.innerHeight / 485;
+                const scale = Math.min(scaleX, scaleY)*0.8;
+                container.scale.set(scale);
 
-                container.scale.set(1);
-
-                container.x =  window.innerWidth  / 2
-                container.y =  window.innerHeight  / 2
-                return
-            }
-                const scaleX =   260 / window.innerWidth;
-                const scaleY =   485 / window.innerHeight;
-                const scale1 = Math.min(scaleX, scaleY);
-    
-     
-                container.scale.set(scale1*coeff);
                 container.x =  window.innerWidth  / 2;
                 container.y =  window.innerHeight  / 2;
-               }
+            }else {
+                const scaleX = window.innerWidth / 260;
+                const scaleY = window.innerHeight / 485;
+                const scale = Math.min(scaleX, scaleY)*0.8;
+                container.scale.set(scale);
+
+                container.x =  window.innerWidth  / 2;
+                container.y =  window.innerHeight  / 2;
+            }  
+          }
         }
 
 
