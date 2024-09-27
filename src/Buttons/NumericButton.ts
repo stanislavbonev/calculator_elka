@@ -72,6 +72,7 @@ export class NumericButton extends BaseButton {
     }
 
     protected onClick(): void {
+        window.navigator.vibrate(150)
         EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.NUMERIC_BUTTON_PRESSED, this.label);
     }
 

@@ -66,12 +66,11 @@ export class CalculatorFactory extends PIXI.Container {
             buttonContainer.addChild(button);
         })
 
-        buttonContainer.x=8;
+        buttonContainer.x = 8;
         if(this.calculatorType.buttonsPosY) {
-            buttonContainer.y=this.calculatorType.buttonsPosY;
+            buttonContainer.y = this.calculatorType.buttonsPosY;
         }
         
-  
         calculatorView.addChild(buttonContainer)
 
         const display = new CalculatorDisplay(this.calculatorType) 

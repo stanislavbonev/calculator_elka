@@ -110,6 +110,7 @@ import { IElkaCalculator } from "../Interfaces"
         }],
         rows: 5,
         columns: 4,
+        buttonsPosY: 150,
         display: {
             displayWidth:230,
             displayHeight:50,
