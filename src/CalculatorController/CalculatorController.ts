@@ -13,12 +13,12 @@ export class CalculatorController {
        EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.POWER_BUTTON_PRESSED, this.calculatorPower.bind(this));
     }
 
-    private calculatorPower(data:boolean){
+    private calculatorPower(data:boolean) {
         console.log(data)
     }
 
     private readNumericButton(data: number) {
-        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.SET_DISPLAY_DATA,data)
+            EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.SET_DISPLAY_DATA,data)
     }
 
     private readOperatorButton(data: string) {
@@ -32,7 +32,7 @@ export class CalculatorController {
         }
 
         if (data === "=") {
-        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.CALCULATE_RESULT)
+            EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.CALCULATE_RESULT)
         }
     }
 }
