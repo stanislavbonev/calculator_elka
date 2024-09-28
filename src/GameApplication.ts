@@ -75,8 +75,8 @@ export class GameApplication extends PIXI.Application {
         
         new CalculatorController();
         new CalculatorModel();
-        this.calcView = new CalculatorView();
-        this.mainContainer.addChild(this.calcView);
+        //this.calcView = ;
+        this.mainContainer.addChild(new CalculatorView());
     }
 
 }
