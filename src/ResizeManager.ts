@@ -31,7 +31,6 @@ import * as PIXI from 'pixi.js';
           }
         }
 
-
     export const isLandscape = () => {
         if(window.innerHeight > window.innerWidth) { 
             console.log("Portrait");
@@ -41,5 +40,6 @@ import * as PIXI from 'pixi.js';
             return true;
             }
         }    
+
 
 
