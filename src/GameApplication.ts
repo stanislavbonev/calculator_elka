@@ -4,6 +4,8 @@ import { CalculatorController } from './CalculatorController/CalculatorControlle
 import { CalculatorModel } from './CalculatorModel/CalculatorModel';
 import { BasicCalculatorButton } from './Buttons/MenuButtons.ts/BasicCalculatorButton';
 import { resizeContainer } from './ResizeManager';
+import { CalculatorEvents } from './CalculatorEvents';
+import { EventDispatcher } from './EventDispatcher';
 export class GameApplication extends PIXI.Application {
 
     private static app: GameApplication;
@@ -14,6 +16,7 @@ export class GameApplication extends PIXI.Application {
         super(GameApplication.getAppOptions());
         this.init();
         window.addEventListener("resize", this.resizeCanvas.bind(this));
+        EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.BASIC_CALCULATOR_BUTTON_PRESSED, this.resizeCanvas, this)
     }
 
     public static getApp(): GameApplication {
