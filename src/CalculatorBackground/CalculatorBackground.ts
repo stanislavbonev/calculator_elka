@@ -5,20 +5,10 @@ import { IElkaCalculator } from '../Interfaces';
 export class CalculatorBackground extends PIXI.Container {
 
   private backgroundContainer: PIXI.Container;
-
-  private backgroundWidth: number;
-  private backgroundHeight: number;
   private backgroundColor: number;
-  private backgroundRadius: number;
-  private backgroundPosY: number;
-
-  private outlineWidth: number;
-  private outlineHeight: number;
-  private outlineRadius: number;
-  private outlineColor: number;
   private metalStrip: PIXI.Sprite;
+  private data: IElkaCalculator;
 
-  private data: IElkaCalculator
   constructor(data: IElkaCalculator) {
     super();
     this.data = data;
