@@ -12,36 +12,18 @@ export class CalculatorDisplay extends PIXI.Container {
     private calculatorDisplay: PIXI.Sprite;
     private displayNumericsEmpty: PIXI.Text;
     private displayNumerics: PIXI.Text;
-
-    private displayWidth: number;
-    private displayHeight: number;
-    private displayRadius: number;
-    private positionX: number
-    private positionY: number
-    private digitsColor: number;
-    private frontCoverColor: number;
-
-    private maxDigits: number;
+    private data: IElkaCalculator;
 
     constructor(data: IElkaCalculator) {
         super();
-
-        this.displayWidth = data.display.displayWidth;
-        this.displayHeight = data.display.displayHeight;
-        this.displayRadius = data.display.displayRadius;
-        this.digitsColor = data.display.digitsColor;
-        this.frontCoverColor = data.display.frontCoverColor;
-        this.maxDigits = data.display.maxDigits;
-        this.positionX = data.display.positionX;
-        this.positionY = data.display.positionY;
-
+        this.data = data;
         this.init()
     }
 
     private init() {
         this.container = new PIXI.Container()
-        this.container.x = this.positionX
-        this.container.y = this.positionY
+        this.container.x = this.data.display.positionX;
+        this.container.y = this.data.display.positionY;
         this.addChild(this.container)
 
         this.createCalculatorDisplayBackground();
@@ -55,7 +37,7 @@ export class CalculatorDisplay extends PIXI.Container {
     private createCalculatorDisplayBackground() {
         const gfx: PIXI.Graphics = new PIXI.Graphics();
         gfx.beginFill(0x171717);
-        gfx.drawRoundedRect(0, 0, this.displayWidth, this.displayHeight, this.displayRadius);
+        gfx.drawRoundedRect(0, 0, this.data.display.displayWidth, this.data.display.displayHeight, this.data.display.displayRadius);
         gfx.endFill();
         const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx);
         this.calculatorDisplay = new PIXI.Sprite(texture);
@@ -65,8 +47,8 @@ export class CalculatorDisplay extends PIXI.Container {
 
     private createClaculatorDisplayFrontCover() {
         const gfx: PIXI.Graphics = new PIXI.Graphics();
-        gfx.beginFill(this.frontCoverColor);
-        gfx.drawRoundedRect(0, 0, this.calculatorDisplay.width, this.calculatorDisplay.height, this.displayRadius);
+        gfx.beginFill(this.data.display.frontCoverColor);
+        gfx.drawRoundedRect(0, 0, this.calculatorDisplay.width, this.calculatorDisplay.height, this.data.display.displayRadius);
         gfx.endFill();
         const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx);
         const calculatorDisplayCover = new PIXI.Sprite(texture);
@@ -76,7 +58,7 @@ export class CalculatorDisplay extends PIXI.Container {
 
     private calcuatorDisplayEmptyDigits() {
         let digits: string = '';
-        for (let i = 0; i <= this.maxDigits; i++) {
+        for (let i = 0; i <= this.data.display.maxDigits; i++) {
             digits += "8"
         }
 
