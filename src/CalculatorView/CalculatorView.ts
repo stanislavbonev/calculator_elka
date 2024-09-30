@@ -12,6 +12,7 @@ interface ViewDimensions {
     width: number,
     height: number
 }
+
 export class CalculatorView extends PIXI.Container implements ViewDimensions {
 
     private calculatorView: PIXI.Container;
