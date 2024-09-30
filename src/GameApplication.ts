@@ -2,13 +2,13 @@ import * as PIXI from 'pixi.js';
 import { CalculatorView } from "./CalculatorView/CalculatorView";
 import { CalculatorController } from './CalculatorController/CalculatorController';
 import { CalculatorModel } from './CalculatorModel/CalculatorModel';
-import { BasicCalculatorButton } from './Buttons/BasicCalculatorButton';
+import { BasicCalculatorButton } from './Buttons/MenuButtons.ts/BasicCalculatorButton';
 import { resizeContainer } from './ResizeManager';
 export class GameApplication extends PIXI.Application {
 
     private static app: GameApplication;
     private mainContainer: PIXI.Container;
-    private calcView:PIXI.Container
+    private calcView: CalculatorView
 
     constructor() {
         super(GameApplication.getAppOptions());
@@ -21,12 +21,12 @@ export class GameApplication extends PIXI.Application {
     }
 
     private init() {
-        (globalThis as any).__PIXI_APP__ = this; 
+        (globalThis as any).__PIXI_APP__ = this;
         GameApplication.app = this;
         this.mainContainer = new PIXI.Container();
         this.mainContainer.name = 'ALOOOOU'
-         this.mainContainer.x =  window.screen.availWidth  / 2
-         this.mainContainer.y =  window.screen.availHeight  / 2
+        this.mainContainer.x = window.screen.availWidth / 2
+        this.mainContainer.y = window.screen.availHeight / 2
 
         this.loader = new PIXI.Loader();
 
@@ -42,7 +42,7 @@ export class GameApplication extends PIXI.Application {
 
             document.body.style.margin = '0';
             document.body.style.overflow = 'hidden';
-            document.documentElement.style.overflow = 'hidden'; 
+            document.documentElement.style.overflow = 'hidden';
 
             this.view.style.position = 'absolute';
             this.view.style.left = '50%';
@@ -55,28 +55,28 @@ export class GameApplication extends PIXI.Application {
     private static getAppOptions() {
         return {
             backgroundColor: 0x808080,
-            resizeTo:window,
+            resizeTo: window,
             autoDensity: true,
         }
     }
 
     private resizeCanvas(): void {
-        this.renderer.resize(document.documentElement.clientWidth , document.documentElement.clientHeight);
+        this.renderer.resize(document.documentElement.clientWidth, document.documentElement.clientHeight);
         resizeContainer(this.mainContainer);
     }
 
     private loadAssets() {
-        
+
     }
 
     private onLoadComplete() {
         const btn: BasicCalculatorButton = new BasicCalculatorButton("Elka 101", 0, 0)
         this.stage.addChild(btn);
-        
+
         new CalculatorController();
         new CalculatorModel();
-        //this.calcView = ;
-        this.mainContainer.addChild(new CalculatorView());
+        this.calcView = new CalculatorView();
+        this.mainContainer.addChild(this.calcView);
     }
 
 }

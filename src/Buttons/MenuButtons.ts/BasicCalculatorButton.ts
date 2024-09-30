@@ -1,8 +1,8 @@
-import { BaseButton } from "./BaseButton";
+import { BaseButton } from "../BaseButton";
 import * as PIXI from 'pixi.js';
-import { GameApplication } from "../GameApplication";
-import { EventDispatcher } from "../EventDispatcher";
-import { CalculatorEvents } from "../CalculatorEvents";
+import { GameApplication } from "../../GameApplication";
+import { EventDispatcher } from "../../EventDispatcher";
+import { CalculatorEvents } from "../../CalculatorEvents";
 import { TextStyle } from 'pixi.js';
 
 export class BasicCalculatorButton extends BaseButton {
@@ -69,7 +69,7 @@ export class BasicCalculatorButton extends BaseButton {
     }
 
     protected onClickUp(): void {
-        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.BASIC_CALCULATOR_BUTTON_PRESSED, "Elka101");
+        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.BASIC_CALCULATOR_BUTTON_PRESSED, "elka1300");
         this.button.scale.set(1);
     }
 

@@ -1,20 +1,19 @@
 import * as PIXI from 'pixi.js';
-import { GameApplication } from "../GameApplication";
-import { BaseButton } from "./BaseButton";
-import { EventDispatcher } from "../EventDispatcher";
-import { CalculatorEvents } from "../CalculatorEvents";
+import { GameApplication } from "../../GameApplication";
+import { BaseButton } from "../BaseButton";
+import { EventDispatcher } from "../../EventDispatcher";
+import { CalculatorEvents } from "../../CalculatorEvents";
 
-export class NumericButton extends BaseButton {
+export class OperatorButton extends BaseButton {
     private button: PIXI.Sprite;
     private buttonText: PIXI.Text;
-    private buttonContainer:PIXI.Container;
+    private buttonContainer: PIXI.Container;
     private label: string | number;
     private xPos: number;
     private yPos: number;
-    private gap: PIXI.Sprite;
-    private color:number;
+    private color: number;
 
-    constructor(label: string | number, x: number, y: number,color:number) {
+    constructor(label: string | number, x: number, y: number, color: number) {
         super();
         this.label = label;
         this.xPos = x;
@@ -30,7 +29,7 @@ export class NumericButton extends BaseButton {
         this.createGap();
         this.createButton();
         this.createLabel();
-    
+
         this.button.on('pointerup', this.onClick, this)
     }
     //TODO IMPROVE INHERITANCE FROM BASE BUTTON REPEATABLE CODE FOR BUTTON APEARENCE
@@ -39,18 +38,18 @@ export class NumericButton extends BaseButton {
         gfx.beginFill(this.color);
         gfx.drawRoundedRect(0, 0, 50, 50, 10);
         gfx.endFill();
-        const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx)
+        const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx);
         this.button = new PIXI.Sprite(texture);
-        this.button.x = this.xPos ;
+        this.button.x = this.xPos;
         this.button.y = this.yPos;
+        this.button.scale.set(0.98);
         this.button.interactive = true;
-        this.button.scale.set(0.98) 
         this.buttonContainer.addChild(this.button);
     }
 
     protected createLabel() {
         this.buttonText = new PIXI.Text(this.label, {
-            fill: 'white',
+            fill: 0x000000,
             fontSize: 20,
         })
         this.buttonText.anchor.set(0.5)
@@ -59,21 +58,19 @@ export class NumericButton extends BaseButton {
         this.button.addChild(this.buttonText);
     }
 
-    private createGap(){
+    protected onClick(): void {
+        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.OPERATOR_BUTTON_PRESSED, this.label);
+    }
+
+    private createGap() {
         const gfx: PIXI.Graphics = new PIXI.Graphics();
         gfx.beginFill(0x808080);
         gfx.drawRoundedRect(0, 0, 52, 52, 10);
         gfx.endFill();
         const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx);
-        this.gap = new PIXI.Sprite(texture);
-        this.gap.x = this.xPos;
-        this.gap.y = this.yPos;
-        this.buttonContainer.addChild(this.gap);
+        const gap = new PIXI.Sprite(texture);
+        gap.x = this.xPos;
+        gap.y = this.yPos;
+        this.buttonContainer.addChild(gap);
     }
-
-    protected onClick(): void {
-        window.navigator.vibrate(150)
-        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.NUMERIC_BUTTON_PRESSED, this.label);
-    }
-
 }

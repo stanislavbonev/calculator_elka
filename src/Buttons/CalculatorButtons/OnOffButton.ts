@@ -1,12 +1,12 @@
 import * as PIXI from 'pixi.js';
-import { GameApplication } from "../GameApplication";
-import { BaseButton } from "./BaseButton";
-import { EventDispatcher } from "../EventDispatcher";
-import { CalculatorEvents } from "../CalculatorEvents";
+import { GameApplication } from "../../GameApplication";
+import { BaseButton } from "../BaseButton";
+import { EventDispatcher } from "../../EventDispatcher";
+import { CalculatorEvents } from "../../CalculatorEvents";
 
 export class OnOffButton extends BaseButton {
     private button: PIXI.Sprite;
-    private buttonClicked:boolean = false;
+    private buttonClicked: boolean = false;
     private buttonContainer: PIXI.Container;
     private label: string;
     private xPos: number;
