@@ -8,11 +8,6 @@ export const elka103: IElkaCalculator = {
             label: "C",
             color: 0xFF5733
         },
-        // {
-        //     type:'empty',
-        //     label:'empty',
-        //     color:null
-        // },
         {
             type: Button.Operator,
             label: "√x",
