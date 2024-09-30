@@ -57,13 +57,5 @@ export class CalculatorView extends PIXI.Container implements ViewDimensions {
         this.viewRegister.set(elka1300.model, elka1300);
     }
 
-    private getRegister(register: Map<string, IElkaCalculator>, key: string) => {
-    if (!register.get(key)) {
-        console.warn("NQMA GO TOZ KLIUCH BA PAPUUUSHH")
-    } else {
-        return register.get(key);
-    }
-}
-
 }
 
