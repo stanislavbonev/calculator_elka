@@ -1,6 +1,4 @@
 import { Container } from "pixi.js"
-import * as PIXI from 'pixi.js';
-import { getViewName } from "./Helpers";
 import { CalculatorView } from "./CalculatorView/CalculatorView";
 
 export const resizeContainer = (container: Container) => {

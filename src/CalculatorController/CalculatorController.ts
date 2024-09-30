@@ -1,5 +1,3 @@
-import { CalculatorModel } from "../CalculatorModel/CalculatorModel";
-import { CalculatorView } from "../CalculatorView/CalculatorView";
 import { CalculatorEvents } from "../CalculatorEvents";
 import { EventDispatcher } from "../EventDispatcher";
 import * as PIXI from "pixi.js";
@@ -7,24 +5,24 @@ import * as PIXI from "pixi.js";
 export class CalculatorController {
 
     constructor() {
- 
-       EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.NUMERIC_BUTTON_PRESSED, this.readNumericButton.bind(this));
-       EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.OPERATOR_BUTTON_PRESSED, this.readOperatorButton.bind(this));
-       EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.POWER_BUTTON_PRESSED, this.calculatorPower.bind(this));
+
+        EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.NUMERIC_BUTTON_PRESSED, this.readNumericButton.bind(this));
+        EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.OPERATOR_BUTTON_PRESSED, this.readOperatorButton.bind(this));
+        EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.POWER_BUTTON_PRESSED, this.calculatorPower.bind(this));
     }
 
-    private calculatorPower(data:boolean) {
+    private calculatorPower(data: boolean) {
         console.log(data)
     }
 
     private readNumericButton(data: number) {
-            EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.SET_DISPLAY_DATA,data)
+        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.SET_DISPLAY_DATA, data)
     }
 
     private readOperatorButton(data: string) {
 
-        if (["+","-","x","/"].includes(data)) {
-            EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.SET_OPERATOR,data)
+        if (["+", "-", "x", "/"].includes(data)) {
+            EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.SET_OPERATOR, data)
         }
 
         if (data === "C") {

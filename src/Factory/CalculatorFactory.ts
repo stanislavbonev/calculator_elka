@@ -1,11 +1,6 @@
 import * as PIXI from 'pixi.js';
-import { elka103 } from "../CalculatorType/Elka103";
-import { elka1300 } from "../CalculatorType/Elka1300";
-import { CalculatorEvents } from "../CalculatorEvents";
-import { EventDispatcher } from "../EventDispatcher";
 import { NumericButton } from "../Buttons/CalculatorButtons/NumericButton";
 import { OperatorButton } from "../Buttons/CalculatorButtons/OperatorButton";
-import { CalculatorView } from '../CalculatorView/CalculatorView';
 import { CalculatorDisplay } from "../CalculatorDisplay/CalculatorDisplay";
 import { CalculatorBackground } from "../CalculatorBackground/CalculatorBackground";
 import { IElkaCalculator } from '../Interfaces';
