@@ -6,7 +6,6 @@ import { CalculatorFactory } from "../Factory/CalculatorFactory"
 import { elka103 } from "../CalculatorType/Elka103";
 import { elka1300 } from "../CalculatorType/Elka1300";
 import { IElkaCalculator } from '../Interfaces';
-import { getRegister } from '../Helpers';
 
 interface ViewDimensions {
     width: number,
@@ -33,7 +32,7 @@ export class CalculatorView extends PIXI.Container implements ViewDimensions {
     }
 
     private createCalculator(viewKey: string) {
-        const modelType: IElkaCalculator = getRegister(this.viewRegister, viewKey);
+        const modelType: IElkaCalculator = this.getRegister(this.viewRegister, viewKey);
 
         this.viewDimensions =
         {
@@ -55,6 +54,14 @@ export class CalculatorView extends PIXI.Container implements ViewDimensions {
 
         this.viewRegister.set(elka103.model, elka103);
         this.viewRegister.set(elka1300.model, elka1300);
+    }
+
+    private getRegister(register: Map<string, IElkaCalculator>, key: string) {
+        if (!register.get(key)) {
+            console.warn("NQMA GO TOZ KLIUCH BA PAPUUUSHH")
+        } else {
+            return register.get(key);
+        }
     }
 
 }
