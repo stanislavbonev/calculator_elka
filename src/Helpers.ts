@@ -8,3 +8,11 @@ export const getViewName = (container: Container): string => {
         return "No Name"
     }
 }
+
+export const getRegister = (register: Map<string, IElkaCalculator>, key: string) => {
+    if (!register.get(key)) {
+        console.warn("NQMA GO TOZ KLIUCH BA PAPUUUSHH")
+    } else {
+        return register.get(key);
+    }
+}
