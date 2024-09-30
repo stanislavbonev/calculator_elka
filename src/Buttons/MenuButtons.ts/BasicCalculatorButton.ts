@@ -69,7 +69,7 @@ export class BasicCalculatorButton extends BaseButton {
     }
 
     protected onClickUp(): void {
-        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.BASIC_CALCULATOR_BUTTON_PRESSED, "elka1300");
+        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.BASIC_CALCULATOR_BUTTON_PRESSED, "elka103");
         this.button.scale.set(1);
     }
 
