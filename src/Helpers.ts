@@ -11,7 +11,7 @@ export const getViewName = (container: Container): string => {
 
 export const getRegister = (register: Map<string, IElkaCalculator>, key: string) => {
     if (!register.get(key)) {
-        console.warn("NQMA GO TOZ KLIUCH BA PAPUUUSHH")
+        console.warn("NQMA GO TOZ KLIUCH BA PAPUUUSHH");
     } else {
         return register.get(key);
     }
