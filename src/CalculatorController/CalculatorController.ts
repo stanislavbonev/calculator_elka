@@ -1,6 +1,5 @@
 import { CalculatorEvents } from "../CalculatorEvents";
 import { EventDispatcher } from "../EventDispatcher";
-import * as PIXI from "pixi.js";
 
 export class CalculatorController {
 
