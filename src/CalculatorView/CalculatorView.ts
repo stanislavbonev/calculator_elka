@@ -46,7 +46,7 @@ export class CalculatorView extends PIXI.Container implements ViewDimensions {
         this.calculatorView.name = modelType.model;
         this.calculatorView.pivot.set(this.calculatorView.width / 2, this.calculatorView.height / 2);
 
-        this.addChild(this.calculatorView)
+        this.addChild(this.calculatorView);
     }
 
     private loadRegister() {
