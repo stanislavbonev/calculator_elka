@@ -7,7 +7,7 @@ export const resizeContainer = (container: Container) => {
     const viewWidth: number = calculatorView.viewDimensions.width;
     const viewHeight: number = calculatorView.viewDimensions.height;
 
-    console.log(calculatorView.viewDimensions)
+    console.log(calculatorView.viewDimensions);
 
     if (calculatorView.children.length > 0) {
 
