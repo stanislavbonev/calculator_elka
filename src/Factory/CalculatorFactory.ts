@@ -5,6 +5,7 @@ import { CalculatorDisplay } from "../CalculatorDisplay/CalculatorDisplay";
 import { CalculatorBackground } from "../CalculatorBackground/CalculatorBackground";
 import { IElkaCalculator } from '../Interfaces';
 import { Button } from '../Buttons/ButtonEnums';
+import { ViewElement } from '../ViewElement';
 
 export class CalculatorFactory extends PIXI.Container {
 
@@ -19,10 +20,10 @@ export class CalculatorFactory extends PIXI.Container {
         return this.createCalculatorView()
     }
 
-    private createCalculatorView(): PIXI.Container {
+    private createCalculatorView(): ViewElement {
         let index: number = 0;
 
-        const calculatorView: PIXI.Container = new PIXI.Container()
+        const calculatorView: ViewElement = new ViewElement()
 
         for (let rows = 0; rows < this.calculatorType.rows; rows++) {
 

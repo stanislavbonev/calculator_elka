@@ -1,32 +1,44 @@
 import { Container } from "pixi.js"
 import { CalculatorView } from "./CalculatorView/CalculatorView";
+import { ViewElement } from "./ViewElement";
 
 export const resizeContainer = (container: Container) => {
-    const calculatorView = container.children[0] as CalculatorView;
+    const viewContainer = container as ViewElement;
 
-    const viewWidth: number = calculatorView.viewDimensions.width;
-    const viewHeight: number = calculatorView.viewDimensions.height;
+    if(!viewContainer.viewDimensions) {
+        return
+    }
 
-    console.log(calculatorView.viewDimensions);
+    if (viewContainer.children.length > 0) {
 
-    if (calculatorView.children.length > 0) {
+        if (!isLandscape()) {
+            const viewWidth: number = viewContainer.viewDimensions.portrait.width;
+            const viewHeight: number = viewContainer.viewDimensions.portrait.height;
+            const viewPositionX: number = viewContainer.viewDimensions.portrait.positionX;
+            const viewPositionY: number = viewContainer.viewDimensions.portrait.positionY;
+            const viewElementSize: number = viewContainer.viewDimensions.portrait.size;
 
-        if (!isLandscape) {
             const scaleX = window.innerWidth / viewWidth;
             const scaleY = window.innerHeight / viewHeight;
-            const scale = Math.min(scaleX, scaleY) * 0.8;
+            const scale = Math.min(scaleX, scaleY) * viewElementSize;
             container.scale.set(scale);
 
-            container.x = window.innerWidth / 2;
-            container.y = window.innerHeight / 2;
+            container.x = window.innerWidth * viewPositionX;
+            container.y = window.innerHeight * viewPositionY;
         } else {
+            const viewWidth: number = viewContainer.viewDimensions.landscape.width;
+            const viewHeight: number = viewContainer.viewDimensions.landscape.height;
+            const viewPositionX: number = viewContainer.viewDimensions.landscape.positionX;
+            const viewPositionY: number = viewContainer.viewDimensions.landscape.positionY;
+            const viewElementSize: number = viewContainer.viewDimensions.landscape.size;
+
             const scaleX = window.innerWidth / viewWidth;
             const scaleY = window.innerHeight / viewHeight;
-            const scale = Math.min(scaleX, scaleY) * 0.8;
+            const scale = Math.min(scaleX, scaleY) * viewElementSize;
             container.scale.set(scale);
 
-            container.x = window.innerWidth / 2;
-            container.y = window.innerHeight / 2;
+            container.x = window.innerWidth * viewPositionX;
+            container.y = window.innerHeight * viewPositionY;
         }
     }
 }

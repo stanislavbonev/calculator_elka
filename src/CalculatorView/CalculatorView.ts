@@ -7,24 +7,15 @@ import { elka103 } from "../CalculatorType/Elka103";
 import { elka1300 } from "../CalculatorType/Elka1300";
 import { IElkaCalculator } from '../Interfaces';
 import { getRegister } from '../Helpers';
+import { ViewElement } from '../ViewElement';
 
-interface ViewDimensions {
-    width: number,
-    height: number
-}
-
-export class CalculatorView extends PIXI.Container implements ViewDimensions {
+export class CalculatorView extends ViewElement {
 
     private calculatorView: PIXI.Container;
     private viewRegister: Map<string, IElkaCalculator>;
-    public viewDimensions: ViewDimensions;
-
+ 
     constructor() {
         super();
-        this.viewDimensions = {
-            width: 0,
-            height: 0
-        };
         EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.BASIC_CALCULATOR_BUTTON_PRESSED, this.createCalculator, this)
         this.init();
     }
@@ -38,13 +29,26 @@ export class CalculatorView extends PIXI.Container implements ViewDimensions {
 
         this.viewDimensions =
         {
-            width: modelType.background.outlineWidth,
-            height: modelType.background.outlineHeight
+            portrait: {
+                width: modelType.background.outlineWidth,
+                height: modelType.background.outlineHeight,
+                positionX: 0.5,
+                positionY: 0.5,
+                size: 0.8
+            },
+            landscape: {
+                width: modelType.background.outlineWidth,
+                height: modelType.background.outlineHeight,
+                positionX: 0.5,
+                positionY: 0.5,
+                size: 0.8
+            }
+            
         }
 
         this.calculatorView = new CalculatorFactory(modelType).returnView();
         this.calculatorView.name = modelType.model;
-        this.calculatorView.pivot.set(this.calculatorView.width / 2, this.calculatorView.height / 2);
+        this.calculatorView.pivot.set(this.calculatorView.width * 0.5, this.calculatorView.height * 0.5);
 
         this.addChild(this.calculatorView);
     }

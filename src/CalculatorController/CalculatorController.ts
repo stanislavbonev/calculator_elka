@@ -4,7 +4,6 @@ import { EventDispatcher } from "../EventDispatcher";
 export class CalculatorController {
 
     constructor() {
-
         EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.NUMERIC_BUTTON_PRESSED, this.readNumericButton.bind(this));
         EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.OPERATOR_BUTTON_PRESSED, this.readOperatorButton.bind(this));
         EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.POWER_BUTTON_PRESSED, this.calculatorPower.bind(this));

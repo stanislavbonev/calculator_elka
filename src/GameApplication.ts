@@ -6,11 +6,12 @@ import { BasicCalculatorButton } from './Buttons/MenuButtons.ts/BasicCalculatorB
 import { resizeContainer } from './ResizeManager';
 import { CalculatorEvents } from './CalculatorEvents';
 import { EventDispatcher } from './EventDispatcher';
+import { ViewElement } from './ViewElement';
 export class GameApplication extends PIXI.Application {
 
     private static app: GameApplication;
     private mainContainer: PIXI.Container;
-    private calcView: CalculatorView
+    private calcView: ViewElement
 
     constructor() {
         super(GameApplication.getAppOptions());
@@ -30,7 +31,7 @@ export class GameApplication extends PIXI.Application {
         this.mainContainer.name = 'ALOOOOU'
         this.mainContainer.x = window.screen.availWidth / 2
         this.mainContainer.y = window.screen.availHeight / 2
-
+        this.mainContainer.pivot.set(this.mainContainer.width / 2,this.mainContainer.height / 2);
         this.loader = new PIXI.Loader();
 
         this.onLoadComplete();
@@ -65,7 +66,14 @@ export class GameApplication extends PIXI.Application {
 
     private resizeCanvas(): void {
         this.renderer.resize(document.documentElement.clientWidth, document.documentElement.clientHeight);
-        resizeContainer(this.mainContainer);
+
+        this.stage.children.forEach((container: PIXI.DisplayObject) => {
+            if(container instanceof ViewElement) {
+                 resizeContainer(container);  
+            }
+        })
+
+      // resizeContainer(this.mainContainer);
     }
 
     private loadAssets() {
@@ -79,7 +87,7 @@ export class GameApplication extends PIXI.Application {
         new CalculatorController();
         new CalculatorModel();
         this.calcView = new CalculatorView();
-        this.mainContainer.addChild(this.calcView);
+        this.stage.addChild(this.calcView);
     }
 
 }

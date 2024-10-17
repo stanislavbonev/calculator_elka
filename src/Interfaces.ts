@@ -38,3 +38,22 @@ export interface IElkaCalculator {
     background: Background
     model: string
 }
+
+export interface ViewDimensions {
+    viewDimensions: { 
+        portrait: {
+            width: number;
+            height: number;
+            positionX: number;
+            positionY: number; 
+            size:number;
+        },
+        landscape: {
+            width: number;
+            height: number;
+            positionX: number;
+            positionY: number; 
+            size:number;
+        } 
+    };
+}
