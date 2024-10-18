@@ -192,6 +192,6 @@ export const elka1300: IElkaCalculator = {
         outlineRadius: 10,
         outlineColor: 0xFF5733
     },
-    model: "elka1300"
+    model: "Elka1300"
 }
 

@@ -7,11 +7,12 @@ import { resizeContainer } from './ResizeManager';
 import { CalculatorEvents } from './CalculatorEvents';
 import { EventDispatcher } from './EventDispatcher';
 import { ViewElement } from './ViewElement';
+import { CalculatorMenu } from './HUD/CalculatorMenu';
 export class GameApplication extends PIXI.Application {
 
     private static app: GameApplication;
     private mainContainer: PIXI.Container;
-    private calcView: ViewElement
+    private calcView: CalculatorView;
 
     constructor() {
         super(GameApplication.getAppOptions());
@@ -66,14 +67,7 @@ export class GameApplication extends PIXI.Application {
 
     private resizeCanvas(): void {
         this.renderer.resize(document.documentElement.clientWidth, document.documentElement.clientHeight);
-
-        this.stage.children.forEach((container: PIXI.DisplayObject) => {
-            if(container instanceof ViewElement) {
-                 resizeContainer(container);  
-            }
-        })
-
-      // resizeContainer(this.mainContainer);
+        this.iterateViewElements(this.stage.children);
     }
 
     private loadAssets() {
@@ -81,13 +75,25 @@ export class GameApplication extends PIXI.Application {
     }
 
     private onLoadComplete() {
-        const btn: BasicCalculatorButton = new BasicCalculatorButton("Elka 101", 0, 0)
-        this.stage.addChild(btn);
-
         new CalculatorController();
         new CalculatorModel();
         this.calcView = new CalculatorView();
+
+        const menuButtons:string[] = this.calcView.returnRegisterEntries();
+        menuButtons.push("Elka101","Elka102","Elka222")
+        const menuBtn: CalculatorMenu = new CalculatorMenu(menuButtons);
+        
+        this.stage.addChild(menuBtn);
         this.stage.addChild(this.calcView);
+    }
+
+    private iterateViewElements(element: PIXI.DisplayObject[]): void {
+        element.forEach((container: PIXI.DisplayObject) => {
+            if(container instanceof ViewElement) {
+                resizeContainer(container);  
+            }
+        })
+        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.POSITION_MENU);
     }
 
 }

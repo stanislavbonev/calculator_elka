@@ -9,13 +9,17 @@ export class BasicCalculatorButton extends BaseButton {
     private button: PIXI.Sprite;
     private xPos: number;
     private yPos: number;
+    private buttonWidth: number;
+    private buttonHeight: number;
     private label: string;
     private buttonText: PIXI.Text;
 
-    constructor(label: string, x: number, y: number) {
+    constructor(label: string, x?: number, y?: number, width?:number, height?:number) {
         super();
         this.xPos = x;
         this.yPos = y;
+        this.buttonWidth = width;
+        this.buttonHeight = height;
         this.label = label;
         this.init();
     }
@@ -39,7 +43,7 @@ export class BasicCalculatorButton extends BaseButton {
     protected createButton() {
         const gfx: PIXI.Graphics = new PIXI.Graphics();
         gfx.beginFill(0x000000);
-        gfx.drawRoundedRect(0, 0, 80, 50, 5);
+        gfx.drawRoundedRect(0, 0, this.buttonWidth, this.buttonHeight, 5);
         gfx.endFill();
         const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx)
         this.button = new PIXI.Sprite(texture);
@@ -69,7 +73,7 @@ export class BasicCalculatorButton extends BaseButton {
     }
 
     protected onClickUp(): void {
-        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.BASIC_CALCULATOR_BUTTON_PRESSED, "elka103");
+        EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.BASIC_CALCULATOR_BUTTON_PRESSED, this.label);
         this.button.scale.set(1);
     }
 

@@ -24,8 +24,12 @@ export class CalculatorView extends ViewElement {
         this.loadRegister();
     }
 
+    public returnRegisterEntries(): string[] {
+        return Array.from(this.viewRegister.keys());
+    }
+
     private createCalculator(viewKey: string) {
-        const modelType: IElkaCalculator = getRegister(this.viewRegister, viewKey);
+        const modelType: IElkaCalculator = this.getRegister(this.viewRegister, viewKey);
 
         this.viewDimensions =
         {
@@ -33,7 +37,7 @@ export class CalculatorView extends ViewElement {
                 width: modelType.background.outlineWidth,
                 height: modelType.background.outlineHeight,
                 positionX: 0.5,
-                positionY: 0.5,
+                positionY: 0.55,
                 size: 0.8
             },
             landscape: {
@@ -43,14 +47,22 @@ export class CalculatorView extends ViewElement {
                 positionY: 0.5,
                 size: 0.8
             }
-            
         }
+           
+        this.clearView();
 
         this.calculatorView = new CalculatorFactory(modelType).returnView();
         this.calculatorView.name = modelType.model;
         this.calculatorView.pivot.set(this.calculatorView.width * 0.5, this.calculatorView.height * 0.5);
 
         this.addChild(this.calculatorView);
+    }
+
+    private clearView() {
+        if(this.calculatorView) {
+            this.calculatorView.removeChildren();
+            this.calculatorView.destroy()
+        }
     }
 
     private loadRegister() {
@@ -62,5 +74,12 @@ export class CalculatorView extends ViewElement {
         this.viewRegister.set(elka1300.model, elka1300);
     }
 
+    private getRegister(register: Map<string, IElkaCalculator>, key: string) {
+        if (!register.get(key)) {
+            console.warn("NQMA GO TOZ KLIUCH BA PAPUUUSHH");
+        } else {
+            return register.get(key);
+        }
+    }
 }
 
