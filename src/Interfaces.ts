@@ -39,21 +39,17 @@ export interface IElkaCalculator {
     model: string
 }
 
-export interface ViewDimensions {
+export interface ILayoutDimension {
+    width: number;
+    height: number;
+    positionX: number;
+    positionY: number;
+    size: number;
+  }
+
+export interface IViewDimensions {
     viewDimensions: { 
-        portrait: {
-            width: number;
-            height: number;
-            positionX: number;
-            positionY: number; 
-            size:number;
-        },
-        landscape: {
-            width: number;
-            height: number;
-            positionX: number;
-            positionY: number; 
-            size:number;
-        } 
+        portrait: ILayoutDimension,
+        landscape: ILayoutDimension 
     };
 }

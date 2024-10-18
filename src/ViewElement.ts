@@ -1,25 +1,12 @@
 import * as PIXI from 'pixi.js';
-import { ViewDimensions } from './Interfaces';
+import { ILayoutDimension, IViewDimensions } from './Interfaces';
 
 
-export class ViewElement extends PIXI.Container implements ViewDimensions {
+export class ViewElement extends PIXI.Container implements IViewDimensions {
 
     viewDimensions: {
-        portrait: {
-            width: number;
-            height: number;
-            positionX: number;
-            positionY: number; 
-            size:number;
-        },
-        landscape: {
-            width: number;
-            height: number;
-            positionX: number;
-            positionY: number; 
-            size:number;
-        } 
-       
+        portrait: ILayoutDimension,
+        landscape: ILayoutDimension 
     };
 
     constructor() {
