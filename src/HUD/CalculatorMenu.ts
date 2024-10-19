@@ -68,6 +68,6 @@ export class CalculatorMenu extends ViewElement {
     private reCalculatePivotPoint(): void {
         isLandscape() ? 
         this.pivot.set(Button.Width * 0.5, (this.children.length * (Button.Height + Button.Offset * 0.75)) * 0.5) :
-        this.pivot.set((this.children.length * (Button.Width + Button.Offset*0.75)) * 0.5 ,Button.Height * 0.5);
+        this.pivot.set((this.children.length * (Button.Width + Button.Offset * 0.75)) * 0.5 ,Button.Height * 0.5);
     }
 }
