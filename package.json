@@ -1,7 +1,7 @@
 {
-    "name": "7mojos_breakout_game",
+    "name": "elka_calculator",
     "version": "1.0.0",
-    "description": "Breakout game",
+    "description": "Elak Calculator",
     "browserslist": "> 0.25%, not dead",
     "scripts": {
         "build": "webpack",

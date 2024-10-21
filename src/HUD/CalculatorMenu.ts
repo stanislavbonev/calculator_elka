@@ -44,7 +44,7 @@ export class CalculatorMenu extends ViewElement {
 
     private createMenu(): void {
         this.menuButtons.forEach((button:string,index:number) => {
-            let menuButton = new BasicCalculatorButton(button,0,0,Button.Width,Button.Height);
+            let menuButton = new BasicCalculatorButton(button, 0, 0, Button.Width, Button.Height);
             this.addChild(menuButton);
         })
     }
@@ -58,9 +58,9 @@ export class CalculatorMenu extends ViewElement {
 
       this.children.forEach((button,index) => {
         if(isLandscape()) {
-            button.position.set(0,(Button.Height + Button.Offset) * index);
+            button.position.set(0, (Button.Height + Button.Offset) * index);
         }else {
-            button.position.set((Button.Width + Button.Offset) * index ,0);
+            button.position.set((Button.Width + Button.Offset) * index , 0);
         }
       })
     }
@@ -68,6 +68,6 @@ export class CalculatorMenu extends ViewElement {
     private reCalculatePivotPoint(): void {
         isLandscape() ? 
         this.pivot.set(Button.Width * 0.5, (this.children.length * (Button.Height + Button.Offset * 0.75)) * 0.5) :
-        this.pivot.set((this.children.length * (Button.Width + Button.Offset * 0.75)) * 0.5 ,Button.Height * 0.5);
+        this.pivot.set((this.children.length * (Button.Width + Button.Offset * 0.75)) * 0.5 , Button.Height * 0.5);
     }
 }
