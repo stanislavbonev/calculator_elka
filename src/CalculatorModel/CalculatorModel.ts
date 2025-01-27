@@ -1,8 +1,8 @@
 import { CalculatorEvents } from "../CalculatorEvents";
 import { EventDispatcher } from "../EventDispatcher";
+import { formatInputKeyboardData, toFixedTrimmed } from "../Helpers";
 import calcOperations from "../SimpleBrain/SimpleBrain";
 
-interface CalculatorState {}
 export class CalculatorModel {
   private memory: string = "0";
   private total: string = "0";
@@ -13,39 +13,29 @@ export class CalculatorModel {
   private operatorSet: boolean = false;
   private leftOperandSet: boolean = false;
   private rightOperandSet: boolean = false;
-  private isNegative: boolean = false; // Add this flag to track negative numbers
+  private isNegative: boolean = false;
 
   private numbers: number[] = [];
   private stringifiedNumbers: string;
 
   constructor() {
-    EventDispatcher.getInstance()
-      .getDispatcher()
-      .on(CalculatorEvents.SET_OPERATOR, this.setOperator.bind(this));
-    EventDispatcher.getInstance()
-      .getDispatcher()
-      .on(CalculatorEvents.CLEAR_MEMORY, this.clearMemory.bind(this));
-    EventDispatcher.getInstance()
-      .getDispatcher()
-      .on(CalculatorEvents.CALCULATE_RESULT, this.calculateResult.bind(this));
-    EventDispatcher.getInstance()
-      .getDispatcher()
-      .on(CalculatorEvents.SET_DISPLAY_DATA, this.setDisplayData.bind(this));
+    EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.SET_OPERATOR, this.setOperator.bind(this));
+    EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.CLEAR_MEMORY, this.clearMemory.bind(this));
+    EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.CALCULATE_RESULT, this.calculateResult.bind(this));
+    EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.SET_DISPLAY_DATA, this.setDisplayData.bind(this));
   }
 
   public setOperator(data: string) {
-    // Handle the case for negative numbers
     if (data === "-" && !this.leftOperandSet) {
-      this.isNegative = true; // Mark the next number as negative
+      this.isNegative = true;
       return;
     }
 
-    if (data === "-" && !this.rightOperandSet && this.operatorSet) {
-      this.isNegative = true; // Mark the next number as negative
+    if (data === "-" && !this.rightOperandSet && this.leftOperandSet) {
+      this.isNegative = true;
       return;
     }
 
-    // If both operands are set, calculate the result before setting a new operator
     if (this.leftOperandSet && this.rightOperandSet) {
       this.calculateResult();
       this.operator = data;
@@ -63,13 +53,8 @@ export class CalculatorModel {
   }
 
   private setTotal(data: string) {
-    //this.total = data;
     this.memory = data;
-    console.log(this.memory, "BBBBBBBBBBBBBBBBBBBB");
-    //EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.UPDATE_DISPLAY, this.total);
-    EventDispatcher.getInstance()
-      .getDispatcher()
-      .emit(CalculatorEvents.UPDATE_DISPLAY, this.memory);
+    EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.UPDATE_DISPLAY, this.memory);
   }
 
   private setLeftOperand(data: string) {
@@ -82,19 +67,15 @@ export class CalculatorModel {
       return;
     }
 
-    // Format the data input
-    this.memory = this.formatInputKeyboardData(data);
-    // console.log(this.memory,"aaaaaaaaaaaaaaaaaaaaaaaaaa")
-    // Check if the number should be negative
+    this.memory = formatInputKeyboardData(data, this.numbers);
+
     if (this.isNegative) {
       this.memory = `-${this.memory}`;
       if (this.leftOperandSet) {
         this.isNegative = false;
       }
-      // Reset flag after using it
     }
 
-    // Set left or right operand based on operator presence
     if (!this.operatorSet) {
       this.leftOperand = this.memory;
       this.leftOperandSet = true;
@@ -104,15 +85,13 @@ export class CalculatorModel {
         if (this.rightOperandSet) {
           this.isNegative = false;
         }
-        // Reset flag after using it
       }
+
       this.rightOperand = this.memory;
       this.rightOperandSet = true;
     }
-    console.log(this.memory, "aaaaaaaaaaaaaaaaaaaaaaaaaa");
-    EventDispatcher.getInstance()
-      .getDispatcher()
-      .emit(CalculatorEvents.UPDATE_DISPLAY, this.memory);
+
+    EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.UPDATE_DISPLAY, this.memory);
   }
 
   public clearMemory() {
@@ -120,14 +99,13 @@ export class CalculatorModel {
     this.total = "0";
     this.leftOperand = "0";
     this.rightOperand = "0";
+    this.operator = "";
     this.leftOperandSet = false;
     this.rightOperandSet = false;
     this.operatorSet = false;
-    this.isNegative = false; // Reset negative flag
+    this.isNegative = false;
     this.numbers = [];
-    EventDispatcher.getInstance()
-      .getDispatcher()
-      .emit(CalculatorEvents.UPDATE_DISPLAY, this.memory);
+    EventDispatcher.getInstance().getDispatcher().emit(CalculatorEvents.UPDATE_DISPLAY, this.memory);
   }
 
   public calculateResult() {
@@ -136,7 +114,7 @@ export class CalculatorModel {
       parseFloat(this.rightOperand)
     );
 
-    this.setTotal(this.toFixedTrimmed(total, 9));
+    this.setTotal(toFixedTrimmed(total, 9));
     this.setLeftOperand(total.toFixed(9));
 
     this.rightOperandSet = false;
@@ -145,12 +123,7 @@ export class CalculatorModel {
 
   private formatInputKeyboardData(data: number) {
     this.numbers.push(data);
-    this.stringifiedNumbers = this.numbers.join("");
-    return this.stringifiedNumbers;
-  }
-
-  private toFixedTrimmed(num: number, digits: number) {
-    let str = num.toFixed(digits);
-    return str.replace(/\.?0+$/, "");
+    let stringifiedNumbers: string = this.numbers.join("");
+    return stringifiedNumbers;
   }
 }

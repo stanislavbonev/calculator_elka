@@ -1,5 +1,6 @@
 import { Container } from "pixi.js";
-import { IElkaCalculator } from "./Interfaces";
+import { CalculatorState, IElkaCalculator } from "./Interfaces";
+import calcOperations from "./SimpleBrain/SimpleBrain";
 
 export const getViewName = (container: Container): string => {
     if (container.children[0]) {
@@ -15,4 +16,15 @@ export const getRegister = (register: Map<string, IElkaCalculator>, key: string)
     } else {
         return register.get(key);
     }
+}
+
+export const formatInputKeyboardData = (data: number, numbers: number[]) => {
+    numbers.push(data);
+    let stringifiedNumbers = numbers.join("");
+    return stringifiedNumbers;
+}
+
+export const toFixedTrimmed = (num: number, digits: number) => {
+    let str = num.toFixed(digits);
+    return str.replace(/\.?0+$/, "");
 }

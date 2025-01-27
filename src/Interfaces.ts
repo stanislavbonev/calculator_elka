@@ -45,11 +45,27 @@ export interface ILayoutDimension {
     positionX: number;
     positionY: number;
     size: number;
-  }
+}
 
 export interface IViewDimensions {
-    viewDimensions: { 
+    viewDimensions: {
         portrait: ILayoutDimension,
-        landscape: ILayoutDimension 
+        landscape: ILayoutDimension
     };
+}
+
+export interface CalculatorState {
+    memoryState: {
+        memory: string;
+        total: string;
+        operator: string;
+        leftOperand: string;
+        rightOperand: string;
+    },
+    logicState: {
+        operatorSet: boolean;
+        leftOperandSet: boolean;
+        rightOperandSet: boolean;
+        isNegative: boolean;
+    }
 }
