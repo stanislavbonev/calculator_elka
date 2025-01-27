@@ -13,7 +13,7 @@ export class CalculatorView extends ViewElement {
 
     private calculatorView: PIXI.Container;
     private viewRegister: Map<string, IElkaCalculator>;
- 
+
     constructor() {
         super();
         EventDispatcher.getInstance().getDispatcher().on(CalculatorEvents.BASIC_CALCULATOR_BUTTON_PRESSED, this.createCalculator, this)
@@ -48,7 +48,7 @@ export class CalculatorView extends ViewElement {
                 size: 0.8
             }
         }
-           
+
         this.clearView();
 
         this.calculatorView = new CalculatorFactory(modelType).returnView();
@@ -59,9 +59,9 @@ export class CalculatorView extends ViewElement {
     }
 
     private clearView() {
-        if(this.calculatorView) {
+        if (this.calculatorView) {
             this.calculatorView.removeChildren();
-            this.calculatorView.destroy()
+            this.calculatorView.destroy();
         }
     }
 
